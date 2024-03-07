@@ -15,7 +15,6 @@ import techconnect.techconnectproject.models.User;
 import techconnect.techconnectproject.models.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -27,6 +26,7 @@ public class UsersController {
     public RedirectView process(){
         return new RedirectView("/login");
     }
+
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
         User user = (User) session.getAttribute("session_user");
@@ -39,7 +39,7 @@ public class UsersController {
             model.addAttribute("user", user);
 
             // Redirect to the appropriate dashboard
-            if (user.getUsername().equals("admin_techConnect")) 
+            if (user.getUsername().equals("admin_techConnect") && user.getPassword().equals("mytechConnectpassword")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -69,7 +69,7 @@ public class UsersController {
             User user = userlist.get(0);
             session.setAttribute("session_user", user);
             model.addAttribute("user", user);
-            if (user.getUsername().equals("admin_techConnect")) 
+            if (user.getUsername().equals("admin_techConnect") && user.getPassword().equals("mytechConnectpassword")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -86,7 +86,6 @@ public class UsersController {
     public String destroySession(HttpServletRequest request) {
         request.getSession().invalidate();
         return "users/login";
-    }
-    
+    }  
     
 }
