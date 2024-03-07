@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package techconnect.techconnectproject.models;
 
 import jakarta.persistence.*;
 
