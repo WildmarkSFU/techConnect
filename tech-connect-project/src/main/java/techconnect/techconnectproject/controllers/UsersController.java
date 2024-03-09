@@ -87,5 +87,22 @@ public class UsersController {
         request.getSession().invalidate();
         return "users/login";
     }  
-    
+
+    @GetMapping("/register")
+    public String getRegister() {
+        return "users/register";
+    }
+
+    @PostMapping("/register")
+    public String postRegister(@RequestParam Map<String, String> formData, Model model) {
+        String name = formData.get("name");
+        String username = formData.get("username");
+        String pwd = formData.get("password");
+        String email = formData.get("email"); // TODO: email verification
+
+        // TODO: check if username already exists
+        
+        userRepo.save(new User(name, username, email, pwd));
+        return "redirect:/login";
+    }
 }
