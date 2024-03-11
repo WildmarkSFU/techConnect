@@ -32,6 +32,12 @@
 #new-inquiry-submit-button{
     background-color: rgb(0, 115, 255);
 }
+#title-container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
 
 .btn-primary{
     height: 100px;
