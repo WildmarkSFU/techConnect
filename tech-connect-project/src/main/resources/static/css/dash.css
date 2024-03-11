@@ -16,6 +16,15 @@
     background-color: rgb(161, 203, 254);
 }
 
+#emergency-button{
+    background-color: red;
+    border-color: red;
+}
+
+#emergency-button:hover{
+    background-color: rgb(255, 150, 150);
+}
+
 .btn-primary{
     height: 100px;
     margin: 30px;
