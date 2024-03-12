@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="/scripts/darkMode.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <html xmlns:th="http://www.thymeleaf.org">
+
 </head>
 <body>
     <div class="container-fluid">
@@ -12,26 +16,29 @@
             <div class="col-md-4">
                 <h1 class="text-center mt-5 mb-5">Welcome to techConnect</h1>
                 <h2 class="text-center mb-4">Register</h2>
+                <div th:if="${error}" class="error" style="text-align: center;">
+                    <p th:text="${error}"></p>
+                </div>
                 <form action="/register" method="post">
                     <div class="mb-3">
                         
                         <input type="text" id="name" name="name" class="form-control form-control-lg"
-                            placeholder="Name">
+                            placeholder="Name" required="required">
                     </div>
                     <div class="mb-3">
                         
                         <input type="text" id="username" name="username" class="form-control form-control-lg"
-                            placeholder="Username">
+                            placeholder="Username" required="required">
                     </div>
                     <div class="mb-3">
                         
                         <input type="text" id="email" name="email" class="form-control form-control-lg"
-                            placeholder="Email">
+                            placeholder="Email" required="required">
                     </div>
                     <div class="mb-3">
                         
                         <input type="password" id="password" name="password" class="form-control form-control-lg"
-                            placeholder="Password">
+                            placeholder="Password" required="required">
                     </div>
                     
                     <!-- Submit button -->
@@ -43,7 +50,9 @@
             </div>
         </div>
     </div>
-
+    <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
+        <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
+    </button>
 </body>
 </html>
                 

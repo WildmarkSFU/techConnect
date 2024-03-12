@@ -27,6 +27,11 @@ public class UsersController {
         return new RedirectView("/login");
     }
 
+     @GetMapping("/newInq")
+    public String redirect(){
+        return "users/newInquiry";
+    }
+
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
         User user = (User) session.getAttribute("session_user");
@@ -100,9 +105,14 @@ public class UsersController {
         String pwd = formData.get("password");
         String email = formData.get("email"); // TODO: email verification
 
-        // TODO: check if username already exists
-        
-        userRepo.save(new User(name, username, email, pwd));
-        return "redirect:/login";
+        List<User> getUserbyUserName = userRepo.findByUsername(username);
+        if (!getUserbyUserName.isEmpty()) {
+            model.addAttribute("error", "Username already exists. Please choose a different username.");
+            return "users/register";
+        }
+        else{
+            userRepo.save(new User(name, username, email, pwd));
+            return "redirect:/login";
+        }
     }
 }

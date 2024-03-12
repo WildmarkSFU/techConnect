@@ -1,0 +1,48 @@
+
+
+#new-inquiry-button{
+    background-color: rgb(255, 188, 20);
+    border-color: rgb(255, 188, 20);
+}
+#message-history-button{
+    background-color: rgb(0, 115, 255);
+    border-color: rgb(0, 115, 255);
+}
+
+#new-inquiry-button:hover{
+    background-color: rgb(253, 235, 188);
+}
+#message-history-button:hover{
+    background-color: rgb(161, 203, 254);
+}
+
+#emergency-button{
+    background-color: red;
+    border-color: red;
+}
+
+#emergency-button:hover{
+    background-color: rgb(255, 150, 150);
+}
+
+#container-2{
+    padding: 30px;
+}
+
+#new-inquiry-submit-button{
+    background-color: rgb(0, 115, 255);
+}
+#title-container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.btn-primary{
+    height: 100px;
+    margin: 30px;
+}
+
+
+
