@@ -107,6 +107,7 @@ public class UsersController {
 
         // TODO: check if username already exists
         
+        
         userRepo.save(new User(name, username, email, pwd));
         return "redirect:/login";
     }
