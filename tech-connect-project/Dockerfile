@@ -6,4 +6,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 COPY --from=build /target/tech-connect-project-0.0.1-SNAPSHOT.jar tech-connect-project.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","tech-connect-project"]
+ENTRYPOINT ["java","-jar","tech-connect-project.jar"]
