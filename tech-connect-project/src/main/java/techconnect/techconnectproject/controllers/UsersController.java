@@ -105,9 +105,14 @@ public class UsersController {
         String pwd = formData.get("password");
         String email = formData.get("email"); // TODO: email verification
 
-        // TODO: check if username already exists
-        
-        userRepo.save(new User(name, username, email, pwd));
-        return "redirect:/login";
+        List<User> getUserbyUserName = userRepo.findByUsername(username);
+        if (!getUserbyUserName.isEmpty()) {
+            model.addAttribute("error", "Username already exists. Please choose a different username.");
+            return "users/register";
+        }
+        else{
+            userRepo.save(new User(name, username, email, pwd));
+            return "redirect:/login";
+        }
     }
 }
