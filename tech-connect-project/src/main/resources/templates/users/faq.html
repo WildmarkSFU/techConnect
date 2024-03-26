@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>FAQ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link th:href="@{/css/dash.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/scripts/darkMode.js" defer></script>
-  </head>
+</head>
 <body data-bs-theme="light">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -34,14 +33,23 @@
             </ul>
           </div>
         </div>
-      </nav>
-    <div id="container" class="container-fluid">
-    <br><h2 th:text="'Welcome ' + ${user.name}"></h2>
-      <div id="button-container" class="d-grid gap-2 col-6 mx-auto">
-        <a style="padding-top: 35px;" id="message-history-button" class="btn btn-primary" type="button" href="/message-history" >Your Inquiries</a>
-        <a style="padding-top: 35px;" id="new-inquiry-button" class="btn btn-primary" type="button" href="/newInq">New Inquiry</a>
-      </div>
-    </div>
+    </nav>
+    <h1>FAQ</h1>
+    <p>Q: What is TechConnect?</p>
+    <p>A: TechConnect is a platform that connects users with tech experts to help solve their tech-related problems.</p>
+    <p>Q: How do I use TechConnect?</p>
+    <p>A: To use TechConnect, you need to create an account. Once you have an account, you can log in and create inquiries to get help from tech experts.</p>
+    <p>Q: How do I create an account?</p>
+    <p>A: To create an account, click on the "Register" button on the login page and fill out the registration form.</p>
+    <p>Q: How do I log in?</p>
+    <p>A: To log in, enter your username and password on the login page and click the "Sign in" button.</p>
+    <p>Q: How do I create an inquiry?</p>
+    <p>A: To create an inquiry, log in to your account and click on the "New Inquiry" button on your dashboard. Fill out the inquiry form and submit it to get help from tech experts.</p>
+    <p>Q: How do I view my inquiries?</p>
+    <p>A: To view your inquiries, log in to your account and click on the "Your Inquiries" button on your dashboard. You will see a list of all your inquiries and their status.</p>
+    <p>Q: How do I log out?</p>
+    <p>A: To log out, click on the "Logout" button on your dashboard.</p>
+
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
       <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
     </button>
