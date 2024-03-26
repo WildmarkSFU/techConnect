@@ -8,6 +8,7 @@ public interface InquiryRepository extends JpaRepository<Inquiry,Integer> {
     List<Inquiry> findByType(String type);
     List<Inquiry> findByTypeAndResolved(String type, boolean resolved);
     List<Inquiry> findByUserIdAndTypeAndResolved(int userId, String type, boolean resolved);
+    List<Inquiry> findByUserIdAndResolved(int userId, Boolean resolved);
     Inquiry findByInqNumber(int inqNumber);
     Inquiry findByTitle(String title);
 }

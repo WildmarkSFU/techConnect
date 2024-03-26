@@ -12,7 +12,7 @@ import techconnect.techconnectproject.models.Inquiry;
 import techconnect.techconnectproject.models.InquiryRepository;
 import techconnect.techconnectproject.models.User;
 
-
+import java.util.List;
 import java.util.Map;
 
 
@@ -38,6 +38,16 @@ public class InquiryController {
         System.out.println("ID = " + id);
         model.addAttribute("newInq", newInq);
         return "users/formSuccess";
+    }
+
+    @GetMapping("/message-history")
+    public String messageHistory(Model model, HttpSession session){
+        User newUser = (User) session.getAttribute("session_user");
+        Integer uid = newUser.getUid();
+        List<Inquiry> messages = inqRepo.findByUserIdAndResolved(uid, false);
+        model.addAttribute("messages", messages);
+        return "users/userMessageHistory";
+
     }
     
 }
