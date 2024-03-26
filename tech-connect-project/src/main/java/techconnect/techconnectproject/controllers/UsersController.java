@@ -27,7 +27,7 @@ public class UsersController {
         return new RedirectView("/login");
     }
 
-     @GetMapping("/newInq")
+    @GetMapping("/newInq")
     public String redirect(){
         return "users/newInquiry";
     }
@@ -74,7 +74,7 @@ public class UsersController {
             User user = userlist.get(0);
             session.setAttribute("session_user", user);
             model.addAttribute("user", user);
-            if (user.getUsername().equals("admin_techConnect") && user.getPassword().equals("mytechConnectpassword")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
