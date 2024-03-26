@@ -27,10 +27,11 @@ public class UsersController {
         return new RedirectView("/login");
     }
 
-     @GetMapping("/newInq")
+       @GetMapping("/newInq")
     public String redirect(){
         return "users/newInquiry";
     }
+
 
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
