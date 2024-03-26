@@ -2,12 +2,17 @@ package techconnect.techconnectproject.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import jakarta.servlet.http.HttpServletResponse;
+
+import jakarta.servlet.http.HttpSession;
 import techconnect.techconnectproject.models.Inquiry;
 import techconnect.techconnectproject.models.InquiryRepository;
+import techconnect.techconnectproject.models.User;
+
+
 import java.util.Map;
 
 
@@ -17,17 +22,22 @@ public class InquiryController {
     private InquiryRepository inqRepo;
 
 
-    @PostMapping("/submit-inquiry")
-    public String submitInquiry(@RequestParam Map<String, String> newInquiry, HttpServletResponse response) {
-        System.out.println("Submit Inquiry");
-        Integer newUserId = Integer.parseInt(newInquiry.get("userID"));
+    @PostMapping("/form-submit")
+    public String getId(@RequestParam Map<String, String> newInquiry, HttpSession session, Model model){
+        System.out.println("GET request to /form endpoint is reached");
+        User newUser = (User) session.getAttribute("session_user");
+        
+        String newUsername = newUser.getUsername();
+        Integer id = newUser.getUid();
+        String title = newInquiry.get("title");
         String newType = newInquiry.get("type");
         String newDescription = newInquiry.get("description");
-        Boolean newResolved = Boolean.parseBoolean(newInquiry.get("resolved"));
-        inqRepo.save(new Inquiry(newUserId, newType, newDescription, newResolved));
-        response.setStatus(201);
-        return "users/userDashboard";
-        
+        Boolean newResolved = false;
+        Inquiry newInq = new Inquiry(id, title, newUsername, newType, newDescription, newResolved);
+        inqRepo.save(newInq);
+        System.out.println("ID = " + id);
+        model.addAttribute(newInq);
+        return "users/formSuccess";
     }
     
 }

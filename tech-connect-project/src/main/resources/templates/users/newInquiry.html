@@ -41,24 +41,24 @@
     <h2>New Inquiry</h2>
   </section>
     <div id="container-2" class="container-fluid">
-        <form action="/submit-inquiry" method="post">
+        <form action="/form-submit" method="post"> 
             <div class="mb-3">
-              <input id="exampleInputEmail1" class="form-control" type="text" placeholder="Inquiry Title" autocomplete="none">
+              <input id="exampleInputEmail1" class="form-control" type="text" placeholder="Inquiry Title" autocomplete="none" name="title">
             </div>
             <div class="mb-3">
-              <select class="form-select" aria-label="Default select example">
+              <select class="form-select" aria-label="Default select example" name="type">
                 <option selected>Select Inquiry Type</option>
-                <option value="1">Emergency Service Request</option>
-                <option value="2">General Service Request</option>
-                <option value="3">Quick Question</option>
+                <option value="Emergency">Emergency Service Request</option>
+                <option value="General Service">General Service Request</option>
+                <option value="Quick Question">Quick Question</option>
               </select>
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Description:</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
             </div>
             <br>
-            <button id="new-inquiry-submit-button" type="submit" class="btn btn-secondary">Submit</button>
+            <button id="new-inquiry-submit-button" type="submit" class="btn btn-secondary"value="SEND">Submit</button>
           </form>
     </div>
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
