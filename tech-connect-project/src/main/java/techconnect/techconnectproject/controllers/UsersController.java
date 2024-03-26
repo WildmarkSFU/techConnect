@@ -9,12 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import techconnect.techconnectproject.models.User;
 import techconnect.techconnectproject.models.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -44,7 +46,7 @@ public class UsersController {
             model.addAttribute("user", user);
 
             // Redirect to the appropriate dashboard
-            if (user.getUsername().equals("admin_techConnect") && user.getPassword().equals("mytechConnectpassword")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -88,8 +90,27 @@ public class UsersController {
     }
 
     @GetMapping("/logout")
-    public String destroySession(HttpServletRequest request) {
-        request.getSession().invalidate();
+    public String destroySession(HttpServletResponse response, HttpServletRequest request) {
+        HttpSession httpSession = request.getSession();
+        httpSession.removeAttribute("session_user");
+        httpSession.invalidate();
+        // request.getSession().invalidate();
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
+        // HttpSession session = request.getSession();
+        // if (session != null){
+        //     session.invalidate();
+        //     System.out.println("Session invalidated");
+        // } else {
+        //     System.out.println("Session is null");
+        // }
+        // if (session == null || session.getAttribute("userId") == null) {
+        //     return "users/login";
+        // }
+        // redirectAttributes.addAttribute("logout", "1234");
+        // model.addAttribute("login", null);
+        // session.removeAttribute("");
         return "users/login";
     }  
 
