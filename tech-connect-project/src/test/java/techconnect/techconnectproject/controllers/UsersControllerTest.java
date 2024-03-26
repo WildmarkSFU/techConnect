@@ -3,11 +3,15 @@ package techconnect.techconnectproject.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -15,9 +19,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import techconnect.techconnectproject.models.User;
 import techconnect.techconnectproject.models.UserRepository;
 
-
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @WebMvcTest(UsersController.class)
 public class UsersControllerTest {
@@ -69,6 +75,21 @@ public class UsersControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
             .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
             .andExpect(MockMvcResultMatchers.redirectedUrl("/login"));
+    }
+
+    @Test
+    public void testLogout() throws Exception {
+        // Create a mock HttpSession
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("userId", 1); // Set a user ID to simulate a logged-in user
+
+        // Perform a GET request to "/logout" with the mock session
+        mockMvc.perform(MockMvcRequestBuilders.get("/logout").session(session))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.view().name("users/login"));
+
+        // Assert that the "userId" attribute has been removed from the session
+        assertNull(session.getAttribute("userId"));
     }
 
 }
