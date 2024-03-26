@@ -38,9 +38,16 @@
       
     <div id="container" class="container-fluid">
         <br><h2>Your inquiry has been submitted!</h2>
-      <div id="button-container" class="d-grid gap-2 col-6 mx-auto">
-        <a style="padding-top: 35px;" id="new-inquiry-button" class="btn btn-primary" type="button" href="/login">Back to Dashboard</a>
-      </div>
+        <div class="form-display">
+            <h3 id="form-display-title" th:text="${newInq.title}"></h3>
+            <h6 id="form-display-type" th:text="${newInq.type}"></h6><br>
+            <p id="form-display-description" th:inline="text">
+                <strong>Description:</strong> [[${newInq.description}]]
+            </p>
+        </div>
+        <div id="button-container" class="d-grid gap-2 col-6 mx-auto">
+            <a style="padding-top: 35px;" id="new-inquiry-button" class="btn btn-primary" type="button" href="/login">Back to Dashboard</a>
+        </div>
     </div>
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
       <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
