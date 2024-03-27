@@ -45,7 +45,7 @@ public class UsersController {
             model.addAttribute("user", user);
 
             // Redirect to the appropriate dashboard
-            if (user.getUsername().equals("admin_techConnect") && user.getPassword().equals("mytechConnectpassword")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -75,7 +75,7 @@ public class UsersController {
             User user = userlist.get(0);
             session.setAttribute("session_user", user);
             model.addAttribute("user", user);
-            if (user.getUsername().equals("admin_techConnect") && user.getPassword().equals("mytechConnectpassword")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -115,5 +115,10 @@ public class UsersController {
             userRepo.save(new User(name, username, email, pwd));
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/faq")
+    public String getFAQ() {
+        return "users/faq";
     }
 }
