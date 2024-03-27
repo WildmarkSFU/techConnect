@@ -44,5 +44,43 @@
     margin: 30px;
 }
 
+.form-display {
+    margin-top: 20px;
+    border: solid rgb(188, 188, 188) 2px;
+    border-radius: 2em;
+    padding: 15px;
+}
+
+.inquiry-container{
+    border: solid rgb(0, 115, 255) 3px;
+    border-radius: 2em;
+    padding-left: 20px;
+    padding-top: 5px;
+    margin-top: 30px;
+    height: 40px;
+    display: flex;
+    font-weight: 500;
+    background-color: rgb(0, 115, 255);
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.inquiry-container:hover{
+    background-color: rgb(161, 203, 254);
+    border-color: rgb(161, 203, 254);
+    cursor: pointer;
+}
+
+#inquiry-history-container{
+    margin-top: 50px;
+    width: 40%;
+}
+
+#container-message-display{
+    padding-left: 50px;
+}
+
+
 
 
