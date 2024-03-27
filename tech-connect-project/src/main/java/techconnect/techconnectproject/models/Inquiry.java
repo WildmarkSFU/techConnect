@@ -9,6 +9,8 @@ public class Inquiry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int inqNumber;
     private int userId;
+    private String userName;
+    private String title;
     private String type;
     private String description;
     private boolean resolved;
@@ -16,11 +18,22 @@ public class Inquiry {
     public Inquiry() {
     }
 
-    public Inquiry(int userId, String type, String description, boolean resolved) {
+    public Inquiry(int userId, String title, String userName, String type, String description, boolean resolved) {
         this.userId = userId;
+        this.userName = userName;
         this.type = type;
         this.description = description;
         this.resolved = resolved;
+        this.title = title;
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getInqNumber() {
@@ -61,5 +74,13 @@ public class Inquiry {
 
     public void setResolved(boolean resolved) {
         this.resolved = resolved;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     } 
 }

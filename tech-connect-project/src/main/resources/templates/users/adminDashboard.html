@@ -38,13 +38,18 @@
     <div id="container" class="container-fluid">
     <br><h2>Welcome Admin</h2>
       <div id="button-container" class="d-grid gap-2 col-6 mx-auto">
-        <button id="emergency-button" class="btn btn-primary" type="button">Emergency Requests</button>
-        <button id="new-inquiry-button" class="btn btn-primary" type="button">General Requests</button>
-        <button id="message-history-button" class="btn btn-primary" type="button">Quick Questions</button>
+        <button onclick="navigateTo('/display/emergency')" id="emergency-button" class="btn btn-primary" type="button">Emergency Requests</button>
+        <button onclick="navigateTo('/display/general')" id="new-inquiry-button" class="btn btn-primary" type="button">General Requests</button>
+        <button onclick="navigateTo('/display/quick')" id="message-history-button" class="btn btn-primary" type="button">Quick Questions</button>
       </div>
     </div>
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
       <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
     </button>
+    <script>
+        function navigateTo(page) {
+          window.location.href = page;
+      }
+    </script>
 </body>
 </html>

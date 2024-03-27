@@ -34,6 +34,7 @@ public class UsersController {
         return "users/newInquiry";
     }
 
+
     @GetMapping("/login")
     public String getLogin(Model model, HttpServletRequest request, HttpSession session) {
         User user = (User) session.getAttribute("session_user");
@@ -135,5 +136,10 @@ public class UsersController {
             userRepo.save(new User(name, username, email, pwd));
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/faq")
+    public String getFAQ() {
+        return "users/faq";
     }
 }
