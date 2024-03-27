@@ -16,13 +16,49 @@ import techconnect.techconnectproject.models.User;
 import java.util.List;
 import java.util.Map;
 
-
 @Controller
 public class InquiryController {
     @Autowired
+
     private InquiryRepository inqRepo;
 
+    @GetMapping("/display/emergency")
+    public String getUrgentInq(Model model) {
 
+        List<Inquiry> unresolvedInquiries = inqRepo.findByTypeAndResolved("emergency", false);
+        List<Inquiry> resolvedInquiries = inqRepo.findByTypeAndResolved("emergency", true);
+
+        model.addAttribute("unresolvedInquiries", unresolvedInquiries);
+        model.addAttribute("resolvedInquiries", resolvedInquiries);
+
+        return "inquiry/displayEmergencyInq";
+    }
+
+    @GetMapping("/display/general")
+    public String getGeneralInq(Model model) {
+
+        List<Inquiry> unresolvedInquiries = inqRepo.findByTypeAndResolved("general", false);
+        List<Inquiry> resolvedInquiries = inqRepo.findByTypeAndResolved("general", true);
+
+        model.addAttribute("unresolvedInquiries", unresolvedInquiries);
+        model.addAttribute("resolvedInquiries", resolvedInquiries);
+
+        return "inquiry/displayGeneralInq";
+    }
+    
+    @GetMapping("/display/quick")
+    public String getQuickInq(Model model) {
+
+        List<Inquiry> unresolvedInquiries = inqRepo.findByTypeAndResolved("quick", false);
+        List<Inquiry> resolvedInquiries = inqRepo.findByTypeAndResolved("quick", true);
+
+        model.addAttribute("unresolvedInquiries", unresolvedInquiries);
+        model.addAttribute("resolvedInquiries", resolvedInquiries);
+
+        return "inquiry/displayQuickInq";
+    }
+
+   
     @PostMapping("/form-submit")
     public String getId(@RequestParam Map<String, String> newInquiry, HttpSession session, Model model){
         System.out.println("GET request to /form endpoint is reached");
@@ -61,5 +97,4 @@ public class InquiryController {
             return "redirect:/message-history";
         }
     }
-    
 }

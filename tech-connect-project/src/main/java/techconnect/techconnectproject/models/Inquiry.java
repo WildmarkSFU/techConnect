@@ -20,10 +20,19 @@ public class Inquiry {
 
     public Inquiry(int userId, String title, String userName, String type, String description, boolean resolved) {
         this.userId = userId;
+        this.userName = userName;
         this.type = type;
         this.description = description;
         this.resolved = resolved;
         this.title = title;
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
