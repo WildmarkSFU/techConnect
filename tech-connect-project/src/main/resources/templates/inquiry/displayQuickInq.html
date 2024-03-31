@@ -3,39 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quick Inquiries</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/scripts/darkMode.js" defer></script>
 </head>
-<body>
+<body data-bs-theme="light">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-		<div class="row justify-content-center">
-			<div class="col-md-8">
-				<h2 class="mt-5 mb-4">UNRESOLVED INQUIRIES</h2>
-				<div th:each="inquiry:${unresolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
+        <a class="navbar-brand" href="#">TechConnect</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/login">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mt-5 mb-4">UNRESOLVED INQUIRIES</h2>
+                <div th:each="inquiry:${unresolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
                     <p th:text="${'User ID: ' + inquiry.userId}"></p>
                     <p th:text="${'Username: ' + inquiry.userName}"></p>
-                    <p th:text="${'Description: ' + inquiry.description}"></p>
-                    <a href="#">
-                        <button type="button" class="btn btn-primary">Reply</button>
+                    <p th:text="${'Title: ' + inquiry.title}"></p>
+                    <a th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
+                        <button type="button" class="btn btn-primary">View</button>
                     </a>
                 </div>       
-			</div>
-		</div>
+            </div>
+        </div>
         <div class="row justify-content-center">
-			<div class="col-md-8">
-				<h2 class="mt-5 mb-4">RESOLVED INQUIRIES</h2>
-				<div th:each="inquiry:${resolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
+            <div class="col-md-8">
+                <h2 class="mt-5 mb-4">RESOLVED INQUIRIES</h2>
+                <div th:each="inquiry:${resolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
                     <p th:text="${'User ID: ' + inquiry.userId}"></p>
                     <p th:text="${'Username: ' + inquiry.userName}"></p>
-                    <p th:text="${'Description: ' + inquiry.description}"></p>
+                    <p th:text="${'Title: ' + inquiry.title}"></p>
                     <a href="#">
                         <button type="button" class="btn btn-primary">View</button>
                     </a>
                 </div>       
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
     
+    <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
+        <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
+    </button>
     
     
 </body>
