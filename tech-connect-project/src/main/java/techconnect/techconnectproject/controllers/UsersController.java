@@ -142,4 +142,39 @@ public class UsersController {
     public String getFAQ() {
         return "users/faq";
     }
+
+    @GetMapping("/account")
+    public String getAccount(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("session_user");
+        if(user == null) 
+        {
+            return "users/login";
+        } 
+        else 
+        {
+            model.addAttribute("user", user);
+            return "users/account";
+        }
+    }
+
+    @PostMapping("/users/update")
+    public String updateAccount(@RequestParam Map<String, String> formData, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("session_user");
+        if(user == null) 
+        {
+            return "users/login";
+        } 
+        else 
+        {
+            String name = formData.get("name");
+            String email = formData.get("email");
+            String pwd = formData.get("password");
+            user.setName(name);
+            user.setEmail(email);
+            user.setPassword(pwd);
+            userRepo.save(user);
+            model.addAttribute("message", name + ", you account has been updated!");
+            return "users/updateSuccess";
+        }
+    }
 }
