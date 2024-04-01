@@ -97,4 +97,44 @@ public class InquiryController {
             return "redirect:/message-history";
         }
     }
+
+    @GetMapping("/resolved/{inqNumber}")
+    public String resolveInquiry(@PathVariable int inqNumber, HttpSession session) {
+        Inquiry inquiry = inqRepo.findById(inqNumber).orElse(null);
+        if (inquiry != null) {
+            if(inquiry.isResolved())
+            {
+                inquiry.setResolved(false);
+
+            }
+            else
+            {
+                inquiry.setResolved(true);
+            }
+
+            inqRepo.save(inquiry);
+        }
+        if (inquiry.getType().equals("emergency")) {
+            return "redirect:/display/emergency";
+        } else if (inquiry.getType().equals("general")) {
+            return "redirect:/display/general";
+        } else {
+            return "redirect:/display/quick";
+        }
+    }
+
+    @GetMapping("/delete/{inqNumber}")
+    public String deleteInquiry(@PathVariable int inqNumber, HttpSession session) {
+        Inquiry inquiry = inqRepo.findById(inqNumber).orElse(null);
+        if (inquiry != null) {
+            inqRepo.delete(inquiry);
+        }
+        if (inquiry.getType().equals("emergency")) {
+            return "redirect:/display/emergency";
+        } else if (inquiry.getType().equals("general")) {
+            return "redirect:/display/general";
+        } else {
+            return "redirect:/display/quick";
+        }
+    }
 }

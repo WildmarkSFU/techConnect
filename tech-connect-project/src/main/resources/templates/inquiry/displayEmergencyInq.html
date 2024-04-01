@@ -38,27 +38,40 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2 class="mt-5 mb-4">UNRESOLVED INQUIRIES</h2>
+                <h1 class="mt-5 mb-4 text-center">EMERGENCIES</h1>
+                <h3 class="mt-5 mb-4">UNRESOLVED INQUIRIES</h3>
                 <div th:each="inquiry:${unresolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
+                    <p th:text="${'INQUIRY #' + inquiry.inqNumber}"></p>
                     <p th:text="${'User ID: ' + inquiry.userId}"></p>
                     <p th:text="${'Username: ' + inquiry.userName}"></p>
                     <p th:text="${'Title: ' + inquiry.title}"></p>
                     <a th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
-                        <button type="button" class="btn btn-primary">View</button>
+                        <button type="button" class="btn btn-primary mb-3 col-md-2">View</button>
+                    </a><br>
+                    <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
+                        <button type="button" class="btn btn-secondary col-md-2">Mark as Resolved</button>
                     </a>
                 </div>       
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h2 class="mt-5 mb-4">RESOLVED INQUIRIES</h2>
+                <h3 class="mt-5 mb-4">RESOLVED INQUIRIES</h3>
                 <div th:each="inquiry:${resolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
+                    <p th:text="${'INQUIRY #' + inquiry.inqNumber}"></p>
                     <p th:text="${'User ID: ' + inquiry.userId}"></p>
                     <p th:text="${'Username: ' + inquiry.userName}"></p>
                     <p th:text="${'Title: ' + inquiry.title}"></p>
-                    <a href="#">
-                        <button type="button" class="btn btn-primary">View</button>
+                    <a th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
+                        <button type="button" class="btn btn-primary mb-3 col-md-2">View</button>
+                    </a><br>
+                    <a th:href="@{'/delete/' + ${inquiry.inqNumber}}">
+                        <button type="button" class="btn btn-secondary mb-3 col-md-2">Delete</button>
+                    </a><br>
+                    <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
+                        <button type="button" class="btn btn-secondary col-md-2">Mark as Unresolved</button>
                     </a>
+                    
                 </div>       
             </div>
         </div>
