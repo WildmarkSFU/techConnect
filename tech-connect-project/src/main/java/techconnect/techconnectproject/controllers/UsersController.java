@@ -2,8 +2,12 @@ package techconnect.techconnectproject.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +27,9 @@ import jakarta.servlet.http.HttpSession;
 public class UsersController {
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private MailSender mailSender;
 
     @GetMapping("/")
     public RedirectView process(){
@@ -121,7 +128,7 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String postRegister(@RequestParam Map<String, String> formData, Model model) {
+    public String postRegister(@RequestParam Map<String, String> formData, Model model, RedirectAttributes redirectAttributes) {
         String name = formData.get("name");
         String username = formData.get("username");
         String pwd = formData.get("password");
@@ -133,9 +140,55 @@ public class UsersController {
             return "users/register";
         }
         else{
-            userRepo.save(new User(name, username, email, pwd));
-            return "redirect:/login";
+            // userRepo.save(new User(name, username, email, pwd));
+            // return "redirect:/login";
+            // Generate verification code
+            int verificationCode = generateVerificationCode();
+            User newUser = new User(name, username, email, pwd, verificationCode, false);
+            newUser.setVerificationCode(verificationCode);
+            userRepo.save(newUser);
+
+            // Send verification email
+            sendVerificationEmail(newUser);
+
+            // Redirect to registration success page
+            redirectAttributes.addFlashAttribute("message", "Registration successful. Please check your email for verification.");
+            return "users/verify";  
         }
+    }
+
+    @GetMapping("/verify")
+    public String verifyCode(@RequestParam String code, Model model) {
+        List<User> users = userRepo.findByVerificationCode(Integer.parseInt(code));
+        if (!users.isEmpty()) {
+            User user = users.get(0);
+            user.setEnabled(true);
+            user.setVerificationCode(-1); // Set to a value that indicates verification is complete
+            userRepo.save(user);
+            model.addAttribute("verificationSuccess", true);
+            return "redirect:/login";
+        } else {
+            model.addAttribute("verificationSuccess", false);
+            return "users/verify";
+        }
+    }
+
+    private void sendVerificationEmail(User user) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("TechConnect Registration Verification");
+        mailMessage.setText("Thank you for registering with TechConnect. Your verification code is: " + user.getVerificationCode());
+        try {
+            mailSender.send(mailMessage);
+        } catch (MailException e) {
+            e.printStackTrace();
+        }
+    }    
+
+    private int generateVerificationCode() {
+        Random random = new Random();
+        // Generate a random integer between 100000 and 999999 (inclusive)
+        return random.nextInt(900000) + 100000;
     }
 
     @GetMapping("/faq")

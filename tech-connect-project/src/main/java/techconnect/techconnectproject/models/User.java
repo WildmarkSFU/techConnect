@@ -12,13 +12,20 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private boolean enabled;
+
+    @Column(name = "verification_code")
+    private int verificationCode;
+
     public User() {
     }
-    public User(String name, String username, String email, String password) {
+    public User(String name, String username, String email, String password, int verificationCode, boolean enabled) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.verificationCode = verificationCode;
+        this.enabled = enabled;
     }
     public int getUid() {
         return uid;
@@ -49,5 +56,17 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public int getVerificationCode() {
+        return verificationCode;
+    }
+    public void setVerificationCode(int verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
