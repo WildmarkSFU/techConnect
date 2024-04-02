@@ -147,11 +147,7 @@ public class UsersController {
             User newUser = new User(name, username, email, pwd, verificationCode, false);
             newUser.setVerificationCode(verificationCode);
             userRepo.save(newUser);
-            
-            System.out.println("New user registered: " + newUser.toString());
-            System.out.println("Verification code: " + newUser.getVerificationCode());
-            
-            System.out.println("Sending verification email...");
+
             // Send verification email
             sendVerificationEmail(newUser);
 
@@ -182,20 +178,12 @@ public class UsersController {
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("TechConnect Registration Verification");
         mailMessage.setText("Thank you for registering with TechConnect. Your verification code is: " + user.getVerificationCode());
-    
-        // Log email content for testing purposes
-        System.out.println("Sending verification email to: " + user.getEmail());
-        System.out.println("Email subject: " + mailMessage.getSubject());
-        System.out.println("Email body: " + mailMessage.getText());
-    
         try {
             mailSender.send(mailMessage);
-            System.out.println("Verification email sent successfully.");
         } catch (MailException e) {
             e.printStackTrace();
-            System.out.println("Failed to send verification email.");
         }
-    }
+    }    
 
     private int generateVerificationCode() {
         Random random = new Random();
