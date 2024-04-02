@@ -147,7 +147,11 @@ public class UsersController {
             User newUser = new User(name, username, email, pwd, verificationCode, false);
             newUser.setVerificationCode(verificationCode);
             userRepo.save(newUser);
-
+            
+            System.out.println("New user registered: " + newUser.toString());
+            System.out.println("Verification code: " + newUser.getVerificationCode());
+            
+            System.out.println("Sending verification email...");
             // Send verification email
             sendVerificationEmail(newUser);
 
