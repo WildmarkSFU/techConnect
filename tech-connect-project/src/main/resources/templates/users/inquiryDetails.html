@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/scripts/darkMode.js" defer></script>
+    <script src="https://44c2d2e7978845e19e17ea959e15b288.weavy.io/uikit-web/weavy.js" defer></script>    
+    <script src="https://{WEAVY-SERVER}/uikit-web/weavy.js" defer></script>
+    <script th:inline="javascript">
+        const weavy = new Weavy();
+        weavy.url = "https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io";
+        weavy.tokenFactory = async () => "${session.getAttribute('weavy_token')}";
+    </script>
 </head>
 <body data-bs-theme="light">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -54,6 +61,7 @@
             </div>
         </div>
     </div>
+    <wy-chat uid="wyuidchat"></wy-chat>
 
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
         <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
