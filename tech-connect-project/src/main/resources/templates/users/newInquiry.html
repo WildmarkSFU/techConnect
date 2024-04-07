@@ -43,11 +43,11 @@
     <div id="container-2" class="container-fluid">
         <form action="/form-submit" method="post"> 
             <div class="mb-3">
-              <input id="exampleInputEmail1" class="form-control" type="text" placeholder="Inquiry Title" autocomplete="none" name="title">
+              <input id="exampleInputEmail1" class="form-control" type="text" placeholder="Inquiry Title" autocomplete="none" name="title" required>
             </div>
             <div class="mb-3">
-              <select class="form-select" aria-label="Default select example" name="type">
-                <option selected>Select Inquiry Type</option>
+              <select class="form-select" aria-label="Default select example" name="type" required>
+                <option disabled selected value="">Select Inquiry Type</option>
                 <option value="emergency">Emergency Service Request</option>
                 <option value="general">General Service Request</option>
                 <option value="quick">Quick Question</option>

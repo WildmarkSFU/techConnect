@@ -12,6 +12,9 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private Double latitude;
+    private Double longitude;
+
     public User() {
     }
     public User(String name, String username, String email, String password) {
@@ -19,6 +22,15 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+    
+    public User(String name, String username, String email, String password, Double latitude, Double longitude) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     public int getUid() {
         return uid;
@@ -49,5 +61,17 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public double getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+    public double getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 }
