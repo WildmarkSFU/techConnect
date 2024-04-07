@@ -14,7 +14,7 @@
     <script th:inline="javascript">
         const weavy = new Weavy();
         weavy.url = "https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io";
-        weavy.tokenFactory = async () => "${session.getAttribute('weavy_token')}";
+        weavy.tokenFactory = async (refresh) => "${session.getAttribute('weavy_token')}";
     </script>
 </head>
 <body data-bs-theme="light">
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    <wy-chat uid="wyuidchat"></wy-chat>
+    <wy-chat uid="demochat"></wy-chat>
 
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
         <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>

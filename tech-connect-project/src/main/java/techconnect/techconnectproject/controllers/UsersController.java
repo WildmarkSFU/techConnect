@@ -39,8 +39,13 @@ public class UsersController {
     private static final String API_KEY = "wys_SzqodD4Y6OmimyXGiL5o7ZXHr3lZYx0NBVRb";
     private static final String WEAVY_SERVER = "https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io";
 
-    private String getWeavyTokenForUser(User user) {
+    private String getWeavyTokenForUser(User user, HttpSession session) {
         // Prepare the request to obtain the token from Weavy's API
+        String existingToken = (String) session.getAttribute("weavy_token");
+        if (existingToken != null) {
+            return existingToken;
+        }
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + API_KEY);
@@ -58,6 +63,8 @@ public class UsersController {
     
         // Check if the request was successful and extract the token from the response
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            String token = responseEntity.getBody();
+            System.out.println("Token: " + token);
             return responseEntity.getBody();
         } else {
             // Handle error or return null if token retrieval fails
@@ -117,7 +124,7 @@ public class UsersController {
         {
             //Successful login
             User user = userlist.get(0);
-            String weavyToken = getWeavyTokenForUser(user);
+            String weavyToken = getWeavyTokenForUser(user, session);
 
             session.setAttribute("weavy_token", weavyToken);
             session.setAttribute("session_user", user);
