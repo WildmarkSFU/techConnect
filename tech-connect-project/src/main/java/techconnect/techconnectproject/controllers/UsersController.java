@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,7 +50,6 @@ public class UsersController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + API_KEY);
-        // Assuming you need to provide user credentials for authentication
         String requestBody = "{\"uid\": \"" + user.getUsername() + "\", \"name\": \"" + user.getName() + "\"}";
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
     
@@ -63,15 +63,24 @@ public class UsersController {
     
         // Check if the request was successful and extract the token from the response
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            String token = responseEntity.getBody();
+            JSONObject jsonResponse = new JSONObject(responseEntity.getBody());
+            String token = jsonResponse.getString("access_token");
             System.out.println("Token: " + token);
-            return responseEntity.getBody();
+            return token;
         } else {
-            // Handle error or return null if token retrieval fails
             return null;
         }
     }
 
+    @GetMapping("/getWeavyToken")
+    public ResponseEntity<String> getWeavyToken(HttpSession session) {
+        String weavyToken = (String) session.getAttribute("weavy_token");
+        if (weavyToken != null) {
+            return ResponseEntity.ok(weavyToken);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/")
     public RedirectView process(){
@@ -141,15 +150,6 @@ public class UsersController {
             }
         }  
     }
-
-    // @GetMapping("/weavyToken")
-    // @ResponseBody
-    // public Map<String, String> getWeavyToken(HttpSession session) {
-    //     String weavyToken = (String) session.getAttribute("weavy_token");
-    //     Map<String, String> response = new HashMap<>();
-    //     response.put("weavy_token", weavyToken);
-    //     return response;
-    // }
 
     @GetMapping("/logout")
     public String destroySession(HttpServletResponse response, HttpServletRequest request) {
