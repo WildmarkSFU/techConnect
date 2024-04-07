@@ -10,11 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/scripts/darkMode.js" defer></script>
     <script src="https://44c2d2e7978845e19e17ea959e15b288.weavy.io/uikit-web/weavy.js" defer></script>    
-    <script src="https://{WEAVY-SERVER}/uikit-web/weavy.js" defer></script>
     <script th:inline="javascript">
         const weavy = new Weavy();
         weavy.url = "https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io";
-        weavy.tokenFactory = async (refresh) => "${session.getAttribute('weavy_token')}";
+        weavy.tokenFactory = async () => "${session.getAttribute('weavy_token')}";
     </script>
 </head>
 <body data-bs-theme="light">
