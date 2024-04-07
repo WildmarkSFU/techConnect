@@ -74,6 +74,7 @@ public class InquiryController {
         inqRepo.save(newInq);
         System.out.println("ID = " + id);
         model.addAttribute("newInq", newInq);
+        model.addAttribute("user", newUser);
         return "users/formSuccess";
     }
 

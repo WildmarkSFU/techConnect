@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/scripts/darkMode.js" defer></script>
   </head>
-  <body data-bs-theme="light">
+<body data-bs-theme="light">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">TechConnect</a>
@@ -36,38 +36,14 @@
         </div>
       </nav>
       
-    <div id="container" class="container-fluid">
-        <br><h2>Your inquiry has been submitted!</h2>
-        <div class="form-display">
-            <h3 id="form-display-title" th:text="${newInq.title}"></h3>
-            <h6 id="form-display-type" th:text="${newInq.type}"></h6><br>
-            <p id="form-display-description" th:inline="text">
-                <strong>Description:</strong> [[${newInq.description}]]
-            </p>
-            <div th:if="${newInq.type == 'emergency'}">
-              <button class="btn btn-secondary" id="getlocation" >Get Distance</button>
-            </div>
-        </div>
-        <div id="button-container" class="d-grid gap-2 col-6 mx-auto">
-            <a style="padding-top: 35px;" id="new-inquiry-button" class="btn btn-primary" type="button" href="/login">Back to Dashboard</a>
-        </div>
-        
-    </div>
+      <div class="container col-md-4">
+        <h1 class="text-center mt-5 mb-5" style="color: rgb(173, 82, 82)" th:text="${'HOLD ON TIGHT!'}"></h1>
+        <p class="text-center fs-4 mb-3" th:text="${'We are around ' + distance +' km ('+ duration + ' mins) away from you.'}"></p>
+        <p class="text-center fs-4 mb-4" style="color: grey" th:text="${'(Please note that this is an approximation)'}"></p>
+      </div>
+      
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
       <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
     </button>
-
-    <script>
-          document.getElementById('getlocation').addEventListener('click', function() {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var longitude = position.coords.longitude;
-            var latitude = position.coords.latitude;
-
-            // Update the hidden input fields with latitude and longitude values
-            var url = '/getDistance/' + longitude + '/' + latitude;
-            window.location.href = url;
-        });
-    });  
-  </script>
 </body>
 </html>
