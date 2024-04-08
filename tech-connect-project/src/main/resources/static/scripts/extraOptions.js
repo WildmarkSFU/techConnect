@@ -50,7 +50,7 @@ darkMode.addEventListener('click', function() {
 aboutProject.addEventListener('click', function() {
     console.log("Working...");
     let aboutText = document.createElement('button');
-    aboutText.setAttribute('style', 'text-align: center; position: absolute; top: 10px; left: 0; right: 0; margin-left: auto; margin-right: auto; border-radius: 20px; width: 20%;');
+    aboutText.setAttribute('style', 'text-align: center; position: absolute; top: 10px; left: 0; right: 0; margin-left: auto; margin-right: auto; border-radius: 20px; width: 300px;');
     // aboutText.setAttribute('class', 'reveal');
     if (localStorage.getItem('theme') == 'dark') {
         aboutText.setAttribute('class', 'btn btn-light btn-sm reveal');
