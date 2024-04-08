@@ -114,7 +114,10 @@
     box-shadow: 5px 5px 10px #888888;
     border-radius: 2em;
     padding: 20px;
+
 }
+
+
 .inq-title-display {
     text-align: center;
     background-color: white;
@@ -123,10 +126,12 @@
     padding-top: auto;
 }
 
-.inq-username {
+.inq-username, .inq-username-resolved{
     position: absolute;
     top: 100px;
+    margin-left: 20px;
 }
+
 
 .inq-title {
     padding: 10px;
@@ -136,7 +141,7 @@
 .inq-button {
     width: 100px;
     justify-self: baseline;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-radius: 2em;
     color: white;
 }
@@ -161,6 +166,11 @@
     bottom: 25px;
     margin-left: 20px;
 }
+.inq-buttons-container-resolved{
+    position: absolute;
+    bottom: 0px;
+    margin-left: 20px;
+}
 
 
 .inq-container {
@@ -183,6 +193,4 @@
     margin-left: 35vw;
     margin-bottom: 25px;;
 }
-
-
 
