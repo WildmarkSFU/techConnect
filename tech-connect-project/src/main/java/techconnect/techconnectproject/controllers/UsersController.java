@@ -2,16 +2,25 @@ package techconnect.techconnectproject.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.Random;
 
+import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.client.RestTemplate;
+
 
 import techconnect.techconnectproject.models.GoogleMapsService;
 import techconnect.techconnectproject.models.User;
@@ -25,6 +34,65 @@ import jakarta.servlet.http.HttpSession;
 public class UsersController {
     @Autowired
     private UserRepository userRepo;
+    private final RestTemplate restTemplate;
+
+    public UsersController(UserRepository userRepo, RestTemplate restTemplate ) {
+        this.restTemplate = restTemplate;
+        this.userRepo = userRepo;
+    }
+
+    private static final String API_KEY = "wys_EkNdqDKsGk3gahxRDpwJNg96SRgaHQ1oqUAf";
+    private static final String WEAVY_SERVER = "https://d967a6772aa74787a4a7383e2644d89d.weavy.io";
+
+    private String getWeavyTokenForUser(User user, HttpSession session) {
+        String existingToken = (String) session.getAttribute("weavy_token");
+        if (existingToken != null) {
+            return existingToken;
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + API_KEY);
+        String requestBody = "{\"uid\": \"" + user.getUsername() + "\", \"name\": \"" + user.getName() + "\"}";
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+    
+        String URL = WEAVY_SERVER + "/api/users/" + user.getUsername() + "/tokens";
+
+        ResponseEntity<String> responseEntity = restTemplate.postForEntity(
+                URL,
+                requestEntity,
+                String.class);
+    
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            JSONObject jsonResponse = new JSONObject(responseEntity.getBody());
+            String token = jsonResponse.getString("access_token");
+            System.out.println("Token: " + token);
+            return token;
+        } else {
+            return null;
+        }
+    }
+
+    private String generateRandomWord(int length){
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder();
+        Random rnd = new Random();
+        while (randomString.length() < length) {
+            int index = (int) (rnd.nextFloat() * characters.length());
+            randomString.append(characters.charAt(index));
+        }
+        return randomString.toString();
+    }
+
+    @GetMapping("/getWeavyToken")
+    public ResponseEntity<String> getWeavyToken(HttpSession session) {
+        String weavyToken = (String) session.getAttribute("weavy_token");
+        if (weavyToken != null) {
+            return ResponseEntity.ok(weavyToken);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/")
     public RedirectView process(){
@@ -49,7 +117,7 @@ public class UsersController {
             model.addAttribute("user", user);
 
             // Redirect to the appropriate dashboard
-            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("Admin1234")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -77,9 +145,12 @@ public class UsersController {
         {
             //Successful login
             User user = userlist.get(0);
+            String weavyToken = getWeavyTokenForUser(user, session);
+
+            session.setAttribute("weavy_token", weavyToken);
             session.setAttribute("session_user", user);
             model.addAttribute("user", user);
-            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("Admin1234")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -135,8 +206,30 @@ public class UsersController {
             return "users/register";
         }
         else{
-            userRepo.save(new User(name, username, email, pwd));
-            return "redirect:/login";
+            String directory = generateRandomWord(4);
+            userRepo.save(new User(name, username, email, pwd, directory));
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + API_KEY);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+            String userDataJson = "{\"uid\": \"" + username + "\", \"name\": \"" + name + "\", \"directory\": \"" + directory + "\"}";
+
+            HttpEntity<String> requestEntity = new HttpEntity<>(userDataJson, headers);
+
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(
+                    WEAVY_SERVER + "/api/users",
+                    requestEntity,
+                    String.class);
+
+            if (responseEntity.getStatusCode().is2xxSuccessful()) {
+                // User successfully created in Weavy
+                return "redirect:/login";
+            } else {
+                // Handle error
+                model.addAttribute("error", "Failed to register user in Weavy.");
+                return "users/register";
+            }
         }
     }
 
