@@ -22,3 +22,34 @@ ul{
         opacity: 0;
     }
 }
+
+#dropdownMenuButton{
+    /* TRANSITION */
+    transition-property: all;
+    transition-duration: 0.3s;
+    /* ANIMATION */
+    animation-name: showmenu;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+#dropdownMenuButton:hover{
+    transform: scale(1.2, 1.2);
+}
+
+#dropdownMenuButton:active{
+    transform: scale(0.6, 0.6);
+}
+
+@keyframes showmenu{
+    0%{
+        opacity: 0;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
