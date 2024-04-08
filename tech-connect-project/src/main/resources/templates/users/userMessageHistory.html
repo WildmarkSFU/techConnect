@@ -8,13 +8,17 @@
     <link th:href="@{/css/dash.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="/scripts/darkMode.js" defer></script>
+    <script src="/scripts/extraOptions.js" defer></script>
+    <link rel = "stylesheet" href = "/css/globals.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script> -->
   </head>
   <style>
 </style>
 <body data-bs-theme="light">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
+          <div id = "siteStats"></div>
           <a class="navbar-brand" href="#">TechConnect</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,8 +49,30 @@
             </a>
         </div>
       </div>
-    <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
-      <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
-    </button>
+    <div class = "dropdown">
+		<button type="button" id="dropdownMenuButton" class="btn btn-light btn-sm position-fixed bottom-0 end-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 20px; margin-right: 30px; border-radius:75px;" title = "Extra Options">
+			<i class = "fa-solid fa-gear" style = "font-size: 150%; padding: 10px"></i>
+		</button>
+		<div class = "dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<p class = "dropdown-item" style = "color: gray;">Extra Options v1.0.0</p>
+			<div class = "dropdown-divider"></div>
+			<p class = "dropdown-item" style = "color: red;">Themes</p>
+			<div class = "dropdown-divider"></div>
+			<ul>
+				<li><a class = "dropdown-item" id = "modeSwitchLight" href = "javascript:void(0);">Light</a></li>
+				<li><a class = "dropdown-item" id = "modeSwitchDark" href = "javascript:void(0);">Dark</a></li>
+				<li><a class = "dropdown-item" id = "modeSwitchBlue" href = "javascript:void(0);">Blue (v0.0.1)</a></li>
+				<li><a class = "dropdown-item" id = "modeSwitchRed" href = "javascript:void(0);">Red (v0.0.1)</a></li>
+				<li><a class = "dropdown-item" id= "modeSwitchPurpleYellow" href = "javascript:void(0);">Purple+Yellow (v0.0.1)</a></li>
+			</ul>
+			<div class = "dropdown-divider"></div>
+			<p class = "dropdown-item" style = "color: blue;">Settings</p>
+			<div class = "dropdown-divider"></div>
+			<ul>
+				<li><a class = "dropdown-item" href = "javascript:void(0);" id = "aboutProject">About</a></li>
+			</ul>
+
+		</div>
+	</div>
 </body>
 </html>

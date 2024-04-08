@@ -1,0 +1,55 @@
+
+ul{
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.reveal{
+    animation-name: reveal;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes reveal{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+#dropdownMenuButton{
+    /* TRANSITION */
+    transition-property: all;
+    transition-duration: 0.3s;
+    /* ANIMATION */
+    animation-name: showmenu;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+#dropdownMenuButton:hover{
+    transform: scale(1.2, 1.2);
+}
+
+#dropdownMenuButton:active{
+    transform: scale(0.6, 0.6);
+}
+
+@keyframes showmenu{
+    0%{
+        opacity: 0;
+    }
+    70%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
