@@ -69,6 +69,7 @@ public class User {
     }
     public String getDirectory() {
         return directory;
+    }
     public double getLatitude() {
         return latitude;
     }
