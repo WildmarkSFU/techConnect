@@ -205,7 +205,12 @@ public class UsersController {
             model.addAttribute("error", "Username already exists. Please choose a different username.");
             return "users/register";
         }
-        else{
+
+        String abstractApiKey = "fd5ff6676b354890b5693d2552c42042";
+        String apiUrl = "https://emailvalidation.abstractapi.com/v1/?api_key=" + abstractApiKey + "&email=" + email;
+        ResponseEntity<String> emailResponseEntity = restTemplate.getForEntity(apiUrl, String.class);
+
+        if (emailResponseEntity.getStatusCode().is2xxSuccessful()) {
             String directory = generateRandomWord(4);
             userRepo.save(new User(name, username, email, pwd, directory));
             HttpHeaders headers = new HttpHeaders();
@@ -230,6 +235,9 @@ public class UsersController {
                 model.addAttribute("error", "Failed to register user in Weavy.");
                 return "users/register";
             }
+        } else {
+            model.addAttribute("error", "Invalid email address.");
+            return "users/register";
         }
     }
 
