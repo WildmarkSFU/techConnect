@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.client.RestTemplate;
 
 
+import techconnect.techconnectproject.models.GoogleMapsService;
 import techconnect.techconnectproject.models.User;
 import techconnect.techconnectproject.models.UserRepository;
 
@@ -269,4 +272,23 @@ public class UsersController {
             return "users/updateSuccess";
         }
     }
+
+    @Autowired
+    private GoogleMapsService googleMapsService;
+
+    @GetMapping("/getDistance/{longitude}/{latitude}")
+    public String getDistance(@PathVariable double longitude, @PathVariable double latitude, HttpSession session, Model model) {
+        User newUser = (User) session.getAttribute("session_user");
+        newUser.setLongitude(longitude);
+        newUser.setLatitude(latitude);
+        userRepo.save(newUser);
+        model.addAttribute("user", newUser);
+        double distance = googleMapsService.calculateDistance(latitude, longitude, 49.220333, -123.065917);
+        double duration = googleMapsService.calculateDuration(latitude, longitude, 49.220333, -123.065917); // Declare the variable 'duration'
+        model.addAttribute("distance", distance);
+        model.addAttribute("duration", duration);
+        return "users/distance";
+    }
+
+    
 }
