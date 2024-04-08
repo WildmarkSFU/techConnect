@@ -52,9 +52,28 @@
             </div>
         </div>
     </div>
-    <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
-        <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>
-    </button>
+    <div class = "dropdown">
+		<button type="button" id="dropdownMenuButton" class="btn btn-light btn-sm position-absolute bottom-0 end-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: -75px; margin-right: 30px; border-radius:75px;" title = "Extra Options">
+			<i class = "fa-solid fa-gear" style = "font-size: 150%; padding: 10px"></i>
+		</button>
+		<div class = "dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<p class = "dropdown-item" style = "color: gray;">Extra Options v1.0.0</p>
+			<div class = "dropdown-divider"></div>
+			<p class = "dropdown-item" style = "color: red;">Themes</p>
+			<div class = "dropdown-divider"></div>
+			<ul>
+				<li><a class = "dropdown-item" id = "modeSwitchLight" href = "javascript:void(0);">Light</a></li>
+				<li><a class = "dropdown-item" id = "modeSwitchDark" href = "javascript:void(0);">Dark</a></li>
+			</ul>
+			<div class = "dropdown-divider"></div>
+			<p class = "dropdown-item" style = "color: blue;">Settings</p>
+			<div class = "dropdown-divider"></div>
+			<ul>
+				<li><a class = "dropdown-item" href = "javascript:void(0);" id = "aboutProject">About</a></li>
+			</ul>
+
+		</div>
+	</div>
 </body>
 </html>
                 
