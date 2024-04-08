@@ -41,8 +41,8 @@ public class UsersController {
         this.userRepo = userRepo;
     }
 
-    private static final String API_KEY = "wys_EkNdqDKsGk3gahxRDpwJNg96SRgaHQ1oqUAf";
-    private static final String WEAVY_SERVER = "https://d967a6772aa74787a4a7383e2644d89d.weavy.io";
+    private static final String API_KEY = "wys_Jf13Lg6Tib55iNAcvI3m0U49VOnPdL1O7EBc";
+    private static final String WEAVY_SERVER = "https://778daca51ec145f8808581cc3828afb5.weavy.io";
 
     private String getWeavyTokenForUser(User user, HttpSession session) {
         String existingToken = (String) session.getAttribute("weavy_token");
