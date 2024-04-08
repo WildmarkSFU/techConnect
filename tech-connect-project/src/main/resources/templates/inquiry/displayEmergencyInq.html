@@ -77,14 +77,18 @@
                         <div class="inq-title-display">
                             <p class="inq-title" th:text="${inquiry.title}"></p>
                         </div>
-                        <p class="inq-username" th:text="${'By: ' + inquiry.userName}"></p>
-                        <div class="inq-buttons-container">
+                        <p class="inq-username-resolved" th:text="${'By: ' + inquiry.userName}"></p>
+                        <div class="inq-buttons-container-resolved">
                             <a  class="inq-button" th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
                                 <button style="background-color: rgb(0, 115, 255); border-color: rgb(0, 115, 255);" class="inq-button" type="button" >View</button>
                             </a><br>
                             <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
                                 <button style="background-color: rgb(255, 188, 20); border-color: rgb(255, 188, 20);" class="inq-button" type="button" >Unresolve</button>
                             </a>
+                            <form th:action="@{'/delete/' + ${inquiry.inqNumber}}" method="get">
+                                <input type="hidden" name="inqNumber" th:value="${inqNumber}" />
+                                <button class="inq-button" style="background-color: red; border-color: red;" type="submit">Delete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -104,9 +108,11 @@
 			<ul>
 				<li><a class = "dropdown-item" id = "modeSwitchLight" href = "javascript:void(0);">Light</a></li>
 				<li><a class = "dropdown-item" id = "modeSwitchDark" href = "javascript:void(0);">Dark</a></li>
+
 				<li><a class = "dropdown-item" id = "modeSwitchBlue" href = "javascript:void(0);">Blue (v0.0.1)</a></li>
 				<li><a class = "dropdown-item" id = "modeSwitchRed" href = "javascript:void(0);">Red (v0.0.1)</a></li>
 				<li><a class = "dropdown-item" id= "modeSwitchPurpleYellow" href = "javascript:void(0);">Purple+Yellow (v0.0.1)</a></li>
+
 			</ul>
 			<div class = "dropdown-divider"></div>
 			<p class = "dropdown-item" style = "color: blue;">Settings</p>
