@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/index.ts"],
+  "sourcesContent": ["import ModalPortal from './modal-portal';\nimport modalController from './modal-controller';\nimport { portal } from './portal';\n\nexport { ModalPortal, modalController, portal };\n"],
+  "mappings": "AAAA,OAAO,iBAAiB;AACxB,OAAO,qBAAqB;AAC5B,SAAS,cAAc;",
+  "names": []
+}
