@@ -57,6 +57,7 @@
     padding-left: 20px;
     padding-top: 5px;
     margin-top: 30px;
+    overflow-x: scroll;
     height: 40px;
     display: flex;
     font-weight: 500;
@@ -81,6 +82,107 @@
     padding-left: 50px;
 }
 
+.slider-wrapper .inquiry-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    height: 500px;
+    padding-bottom: 10px;
+}
+
+.slider-wrapper {
+    margin: 20px;
+    margin-left: 20px;
+
+
+}
+
+.slider-wrapper .inquiry-list .inquiries {
+    object-fit: cover;
+    width: 200px;
+    height: 300px;
+
+}
+
+.inquiries {
+    
+    position: relative;
+    border: 1px solid #F6F7F9;
+    background-color: #F6F7F9;
+    box-shadow: 5px 5px 10px #888888;
+    border-radius: 2em;
+    padding: 20px;
+}
+.inq-title-display {
+    text-align: center;
+    background-color: white;
+    border-radius: 2em;
+    margin-bottom: 5px;
+    padding-top: auto;
+}
+
+.inq-username {
+    position: absolute;
+    top: 100px;
+}
+
+.inq-title {
+    padding: 10px;
+    font-weight: 800;
+}
+
+.inq-button {
+    width: 100px;
+    justify-self: baseline;
+    margin-bottom: 30px;
+    border-radius: 2em;
+    color: white;
+}
+.dropdown-content{
+    width: 150px;
+    margin-top: 20px;
+    margin-left: 20px;
+    justify-self: baseline;
+    border-radius: 2em;
+    color: white;
+    background-color: #454545;
+    border-color:#454545;
+    text-align: center;
+    padding: 10px;
+
+}
+.dropdown-content:hover{
+    cursor: pointer;
+}
+.inq-buttons-container{
+    position: absolute;
+    bottom: 25px;
+    margin-left: 20px;
+}
+
+
+.inq-container {
+    max-width: 1200px;
+    width: 95%;
+    overflow-y: scroll;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    
+}
+
+
+
+.inq-type-header {
+    margin-left: 35vw;
+    margin-bottom: 25px;;
+}
 
 
 

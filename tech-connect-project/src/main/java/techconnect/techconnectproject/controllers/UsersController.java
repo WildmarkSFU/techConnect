@@ -49,7 +49,7 @@ public class UsersController {
             model.addAttribute("user", user);
 
             // Redirect to the appropriate dashboard
-            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("Admin1234")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -79,7 +79,7 @@ public class UsersController {
             User user = userlist.get(0);
             session.setAttribute("session_user", user);
             model.addAttribute("user", user);
-            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("Admin1234")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";

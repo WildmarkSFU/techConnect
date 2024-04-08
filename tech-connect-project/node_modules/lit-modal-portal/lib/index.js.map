@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/lib/index.ts"],
+  "sourcesContent": ["import LitDialog from './lit-dialog';\nimport ConfirmModal from './confirm-modal';\nimport { WithLitDialog } from './with-lit-dialog';\n\nexport { LitDialog, ConfirmModal, WithLitDialog };\n"],
+  "mappings": "AAAA,OAAO,eAAe;AACtB,OAAO,kBAAkB;AACzB,SAAS,qBAAqB;",
+  "names": []
+}

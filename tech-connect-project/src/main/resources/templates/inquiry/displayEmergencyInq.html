@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urgent Inquiries</title>
+    <link th:href="@{/css/dash.css}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -36,44 +37,54 @@
     </nav>
 
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h1 class="mt-5 mb-4 text-center">EMERGENCIES</h1>
-                <h3 class="mt-5 mb-4">UNRESOLVED INQUIRIES</h3>
-                <div th:each="inquiry:${unresolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
-                    <p th:text="${'INQUIRY #' + inquiry.inqNumber}"></p>
-                    <p th:text="${'User ID: ' + inquiry.userId}"></p>
-                    <p th:text="${'Username: ' + inquiry.userName}"></p>
-                    <p th:text="${'Title: ' + inquiry.title}"></p>
-                    <a th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
-                        <button type="button" class="btn btn-primary mb-3 col-md-2">View</button>
-                    </a><br>
-                    <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
-                        <button type="button" class="btn btn-secondary col-md-2">Mark as Resolved</button>
-                    </a>
+            <div class="dropdown">
+                <!-- <button class="dropbtn">Filter By</button> -->
+                <select id="drop-down-element" class="dropdown-content" onchange="toggleInquiries()">
+                    <option value="unresolved">Unresolved</option>
+                    <option value="resolved">Resolved</option>
+                </select>
+            </div>
+            <div class="inq-container" id="inq-container-unresolved">
+                <div class="slider-wrapper">
+                    <h3 class="inq-type-header">Unresolved Inquiries</h3>
+                    <div class="inquiry-list">
+                        <div class="inquiries" th:each="inquiry:${unresolvedInquiries}">
+                            <div class="inq-title-display">
+                                <p class="inq-title" th:text="${inquiry.title}"></p>
+                            </div>
+                            <p class="inq-username" th:text="${'By: ' + inquiry.userName}"></p>
+                            <div class="inq-buttons-container">
+                                <a  class="inq-button" th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
+                                    <button style="background-color: rgb(0, 115, 255); border-color: rgb(0, 115, 255);" class="inq-button" type="button" >View</button>
+                                </a><br>
+                                <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
+                                    <button style="background-color: rgb(255, 188, 20); border-color: rgb(255, 188, 20);" class="inq-button" type="button" >Resolve</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>       
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h3 class="mt-5 mb-4">RESOLVED INQUIRIES</h3>
-                <div th:each="inquiry:${resolvedInquiries}" style="border: 1px solid black; padding: 10px; margin-bottom: 10px">
-                    <p th:text="${'INQUIRY #' + inquiry.inqNumber}"></p>
-                    <p th:text="${'User ID: ' + inquiry.userId}"></p>
-                    <p th:text="${'Username: ' + inquiry.userName}"></p>
-                    <p th:text="${'Title: ' + inquiry.title}"></p>
-                    <a th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
-                        <button type="button" class="btn btn-primary mb-3 col-md-2">View</button>
-                    </a><br>
-                    <a th:href="@{'/delete/' + ${inquiry.inqNumber}}">
-                        <button type="button" class="btn btn-secondary mb-3 col-md-2">Delete</button>
-                    </a><br>
-                    <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
-                        <button type="button" class="btn btn-secondary col-md-2">Mark as Unresolved</button>
-                    </a>
-                    
-                </div>       
-            </div>
+        <div class="inq-container" id="inq-container-resolved" style="display: none;">
+            <div class="slider-wrapper">
+                <h3 class="inq-type-header">Resolved Inquiries</h3>
+                <div class="inquiry-list">
+                    <div class="inquiries" th:each="inquiry:${resolvedInquiries}">
+                        <div class="inq-title-display">
+                            <p class="inq-title" th:text="${inquiry.title}"></p>
+                        </div>
+                        <p class="inq-username" th:text="${'By: ' + inquiry.userName}"></p>
+                        <div class="inq-buttons-container">
+                            <a  class="inq-button" th:href="@{'/inquiry-details/' + ${inquiry.inqNumber}}">
+                                <button style="background-color: rgb(0, 115, 255); border-color: rgb(0, 115, 255);" class="inq-button" type="button" >View</button>
+                            </a><br>
+                            <a th:href="@{'/resolved/' + ${inquiry.inqNumber}}">
+                                <button style="background-color: rgb(255, 188, 20); border-color: rgb(255, 188, 20);" class="inq-button" type="button" >Unresolve</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>       
         </div>
     </div>
     
@@ -84,3 +95,23 @@
     
 </body>
 </html>
+
+<script>
+    // JavaScript function to toggle visibility of inquiry sections
+    function toggleInquiries() {
+        
+            var selection = document.getElementById('drop-down-element');
+            console.log(selection.value);
+
+            if (selection.value == 'unresolved'){
+                document.getElementById('inq-container-unresolved').style.display = 'block';
+                document.getElementById('inq-container-resolved').style.display = 'none';
+
+            }
+            else{
+                document.getElementById('inq-container-resolved').style.display = 'block';
+                document.getElementById('inq-container-unresolved').style.display = 'none';
+
+            }
+    }
+</script>
