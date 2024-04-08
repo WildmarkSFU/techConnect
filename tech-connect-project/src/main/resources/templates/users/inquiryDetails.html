@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/scripts/darkMode.js" defer></script>
-    <script src="https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io/uikit-web/weavy.js"></script>    
+    <script src="https://d967a6772aa74787a4a7383e2644d89d.weavy.io/uikit-web/weavy.js"></script>    
     <script th:inline="javascript">
         const weavy = new Weavy();
-        weavy.url = "https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io";
+        weavy.url = "https://d967a6772aa74787a4a7383e2644d89d.weavy.io";
         fetch('/getWeavyToken')
         .then(response => {
             if (response.ok) {
@@ -23,7 +23,6 @@
         })
         .then(weavyToken => {
             weavy.tokenFactory = async () => weavyToken;
-            console.log("Weavy token: " + weavyToken);
         })
         .catch(error => {
             console.error('Error fetching Weavy token:', error);
@@ -74,7 +73,7 @@
             </div>
         </div>
     </div>
-    <wy-chat uid="wyuidchat"></wy-chat>
+    <wy-chat uid="demochat"></wy-chat>
 
     <button type="button" id="modeSwitch" class="btn btn-dark btn-lg position-absolute bottom-0 end-0 " style="margin-bottom: 75px; margin-right: 75px; border-radius:75px;">
         <i class="fa-solid fa-lightbulb" style="font-size: 150%; padding: 10px"></i>

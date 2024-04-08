@@ -3,6 +3,7 @@ package techconnect.techconnectproject.controllers;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,10 @@ public class UsersController {
         this.userRepo = userRepo;
     }
 
-    private static final String API_KEY = "wys_SzqodD4Y6OmimyXGiL5o7ZXHr3lZYx0NBVRb";
-    private static final String WEAVY_SERVER = "https://fd97facfe4e14f09abbbcd0641057eb7.weavy.io";
+    private static final String API_KEY = "wys_EkNdqDKsGk3gahxRDpwJNg96SRgaHQ1oqUAf";
+    private static final String WEAVY_SERVER = "https://d967a6772aa74787a4a7383e2644d89d.weavy.io";
 
     private String getWeavyTokenForUser(User user, HttpSession session) {
-        // Prepare the request to obtain the token from Weavy's API
         String existingToken = (String) session.getAttribute("weavy_token");
         if (existingToken != null) {
             return existingToken;
@@ -53,7 +53,6 @@ public class UsersController {
         String requestBody = "{\"uid\": \"" + user.getUsername() + "\", \"name\": \"" + user.getName() + "\"}";
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
     
-        // Send the request to Weavy's API to obtain the token
         String URL = WEAVY_SERVER + "/api/users/" + user.getUsername() + "/tokens";
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(
@@ -61,7 +60,6 @@ public class UsersController {
                 requestEntity,
                 String.class);
     
-        // Check if the request was successful and extract the token from the response
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             JSONObject jsonResponse = new JSONObject(responseEntity.getBody());
             String token = jsonResponse.getString("access_token");
@@ -70,6 +68,17 @@ public class UsersController {
         } else {
             return null;
         }
+    }
+
+    private String generateRandomWord(int length){
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder();
+        Random rnd = new Random();
+        while (randomString.length() < length) {
+            int index = (int) (rnd.nextFloat() * characters.length());
+            randomString.append(characters.charAt(index));
+        }
+        return randomString.toString();
     }
 
     @GetMapping("/getWeavyToken")
@@ -105,7 +114,7 @@ public class UsersController {
             model.addAttribute("user", user);
 
             // Redirect to the appropriate dashboard
-            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("Admin1234")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -138,7 +147,7 @@ public class UsersController {
             session.setAttribute("weavy_token", weavyToken);
             session.setAttribute("session_user", user);
             model.addAttribute("user", user);
-            if (user.getUsername().equals("admin") && user.getPassword().equals("admin")) 
+            if (user.getUsername().equals("admin") && user.getPassword().equals("Admin1234")) 
             {
                 // Redirect to admin dashboard
                 return "users/adminDashboard";
@@ -194,12 +203,14 @@ public class UsersController {
             return "users/register";
         }
         else{
-            userRepo.save(new User(name, username, email, pwd));
+            String directory = generateRandomWord(4);
+            userRepo.save(new User(name, username, email, pwd, directory));
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + API_KEY);
             headers.setContentType(MediaType.APPLICATION_JSON);
 
-            String userDataJson = "{\"uid\": \"" + username + "\", \"name\": \"" + name + "\", \"directory\": \"acme\"}";
+
+            String userDataJson = "{\"uid\": \"" + username + "\", \"name\": \"" + name + "\", \"directory\": \"" + directory + "\"}";
 
             HttpEntity<String> requestEntity = new HttpEntity<>(userDataJson, headers);
 

@@ -7,11 +7,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpEntity;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpClientErrorException;
 
 import jakarta.servlet.http.HttpSession;
 import techconnect.techconnectproject.models.Inquiry;
 import techconnect.techconnectproject.models.InquiryRepository;
 import techconnect.techconnectproject.models.User;
+import techconnect.techconnectproject.models.UserRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +28,15 @@ import java.util.Map;
 public class InquiryController {
     @Autowired
 
-    private InquiryRepository inqRepo;
+    private final InquiryRepository inqRepo;
+    private final UserRepository userRepo;
+    private final RestTemplate restTemplate;
+
+    public InquiryController(InquiryRepository inqRepo, RestTemplate restTemplate, UserRepository userRepo) {
+        this.restTemplate = restTemplate;
+        this.inqRepo = inqRepo;
+        this.userRepo = userRepo;
+    }
 
     @GetMapping("/display/emergency")
     public String getUrgentInq(Model model) {
@@ -86,12 +102,51 @@ public class InquiryController {
         return "users/userMessageHistory";
 
     }
+
+    private void updateWeavyAdminDirectory(String username, HttpSession session, Model model){
+        String WEAVY_SERVER = "https://d967a6772aa74787a4a7383e2644d89d.weavy.io";
+        String API_KEY = "wys_EkNdqDKsGk3gahxRDpwJNg96SRgaHQ1oqUAf";
+
+        List<User> newUser = userRepo.findByUsername(username);
+        User user = newUser.get(0);
+        String directory = user.getDirectory();
+        String userDataJson = "{\"directory\": \"" + directory + "\"}";
+
+        // Set up the HTTP headers
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + API_KEY);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(userDataJson, headers);
+
+        try {
+            restTemplate.put(
+                    WEAVY_SERVER + "/api/users/admin",
+                    requestEntity
+            );
+            System.out.println("User's directory updated successfully.");
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode().is2xxSuccessful()) {
+                System.out.println("User's directory updated successfully.");
+            } else {
+                System.out.println("Failed to update user's directory in Weavy. Status code: " + e.getStatusCode());
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to update user's directory in Weavy. Error: " + e.getMessage());
+        }
+    }
     
     @GetMapping("/inquiry-details/{inqNumber}")
     public String inquiryDetails(@PathVariable int inqNumber, HttpSession session, Model model) {
         Inquiry inquiry = inqRepo.findById(inqNumber).orElse(null);
+ 
+        User newUser = (User) session.getAttribute("session_user");
         if (inquiry != null) {
             model.addAttribute("inquiry", inquiry);
+
+            if (newUser.getUsername().equals("admin")){
+                updateWeavyAdminDirectory(inquiry.getUserName(), session, model);
+            }
             return "users/inquiryDetails";
         } else {
             return "redirect:/message-history";
