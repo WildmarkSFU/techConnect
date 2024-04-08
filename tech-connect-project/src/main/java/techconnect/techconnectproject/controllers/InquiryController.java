@@ -105,8 +105,8 @@ public class InquiryController {
     }
 
     private void updateWeavyAdminDirectory(String username, HttpSession session, Model model){
-        String WEAVY_SERVER = "https://d967a6772aa74787a4a7383e2644d89d.weavy.io";
-        String API_KEY = "wys_EkNdqDKsGk3gahxRDpwJNg96SRgaHQ1oqUAf";
+        String WEAVY_SERVER = "https://778daca51ec145f8808581cc3828afb5.weavy.io";
+        String API_KEY = "wys_Jf13Lg6Tib55iNAcvI3m0U49VOnPdL1O7EBc";
 
         List<User> newUser = userRepo.findByUsername(username);
         User user = newUser.get(0);
