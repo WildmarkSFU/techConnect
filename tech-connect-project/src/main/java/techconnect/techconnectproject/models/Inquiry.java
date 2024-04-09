@@ -13,12 +13,14 @@ public class Inquiry {
     private String title;
     private String type;
     private String description;
+    private String directory;
+    private String channel;
     private boolean resolved;
     
     public Inquiry() {
     }
 
-    public Inquiry(int userId, String title, String userName, String type, String description, boolean resolved) {
+    public Inquiry(int userId, String title, String userName, String type, String description, boolean resolved, String directory, String channel) {
         this.userId = userId;
         this.userName = userName;
         this.type = type;
@@ -26,6 +28,8 @@ public class Inquiry {
         this.resolved = resolved;
         this.title = title;
         this.userName = userName;
+        this.directory = directory;
+        this.channel = channel;
     }
 
     public String getUserName() {
@@ -83,4 +87,18 @@ public class Inquiry {
     public void setTitle(String title) {
         this.title = title;
     } 
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        this.directory = directory;
+    }
+    public String getChannel() {
+        return channel;
+    }
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
 }
