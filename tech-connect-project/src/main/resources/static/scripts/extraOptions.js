@@ -3,6 +3,7 @@ let lightMode = document.getElementById("modeSwitchLight");
 let darkMode = document.getElementById("modeSwitchDark");
 let blueMode = document.getElementById("modeSwitchBlue");
 let redMode = document.getElementById("modeSwitchRed");
+let redOrangeMode = document.getElementById("modeSwitchRedOrange");
 let purpleYellowMode = document.getElementById("modeSwitchPurpleYellow");
 let aboutProject = document.getElementById("aboutProject");
 let navBar = document.getElementsByTagName('nav')[0];
@@ -60,6 +61,19 @@ window.onload = function(){
             navBar.setAttribute('style', 'background-color: #800080 !important; font-weight: bold;');
         }
         console.log('Theme switched to purpleYellow')
+    }
+    else if (localStorage.getItem('theme') == 'redOrange') {
+        if (navBar){
+            navBar.removeAttribute('style');
+        }
+        dropdownMenuBtn.style.backgroundColor = '';
+        document.body.setAttribute('data-bs-theme', 'light')
+        dropdownMenuBtn.setAttribute('class', 'btn btn-warning btn-sm position-fixed bottom-0 end-0')
+        document.body.setAttribute('style', 'background-image: linear-gradient(to bottom right, orange, red); background-repeat: no-repeat; background-size: cover; background-position: center; color: black; font-weight: bold; color: #0000EE; min-height: 100vh;');
+        console.log('Theme switched to redOrange')
+        if (navBar){
+            navBar.setAttribute('style', 'background-color: orange !important; font-weight: bold;');
+        }
     }
     else{
         if (navBar){
@@ -153,6 +167,25 @@ purpleYellowMode.addEventListener('click', function() {
     }
     localStorage.setItem('theme', 'purpleYellow')
     console.log('Theme switched to purpleYellow')
+});
+
+redOrangeMode.addEventListener('click', function() {
+    if (navBar){
+        navBar.removeAttribute('style');
+    }
+    dropdownMenuBtn.style.backgroundColor = '';
+    if (localStorage.getItem('theme') == 'redOrange') {
+        return;
+    }
+    document.body.setAttribute('data-bs-theme', 'light')
+    dropdownMenuBtn.setAttribute('class', 'btn btn-warning btn-sm position-fixed bottom-0 end-0')
+    document.body.setAttribute('style', 'background-image: linear-gradient(to bottom right, orange, red); background-repeat: no-repeat; background-size: cover; background-position: center; color: black; font-weight: bold; color: #0000EE; min-height: 100vh;');
+    localStorage.setItem('theme', 'redOrange')
+        console.log('Theme switched to redOrange')
+        if (navBar){
+            navBar.setAttribute('style', 'background-color: orange !important; font-weight: bold;');
+        }
+    console.log('Theme switched to redOrange')
 });
 
 aboutProject.addEventListener('click', function() {
