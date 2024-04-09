@@ -149,7 +149,7 @@ window.onload = function(){
     }
     if (localStorage.getItem('stats') == 'on') {
         let statsText = document.createElement('button');
-        statsText.setAttribute('style', 'text-align: center; position: absolute; bottom: 0px; left: 0; right: 0; margin-right: auto; width: 300px;');
+        statsText.setAttribute('style', 'text-align: center; position: fixed; bottom: 0px; left: 0; right: 0; margin-right: auto; width: 300px;');
         if (localStorage.getItem('theme') == 'dark') {
             statsText.style.backgroundColor = '#343A40';
             statsText.style.color = 'white';
@@ -348,7 +348,7 @@ theStats.addEventListener('click', function() {
     if (localStorage.getItem('stats') == 'off') {
         console.log("Fetching stats");
         let statsText = document.createElement('button');
-        statsText.setAttribute('style', 'text-align: center; position: absolute; bottom: 0px; left: 0; right: 0; margin-right: auto; width: 300px;');
+        statsText.setAttribute('style', 'text-align: center; position: fixed; bottom: 0px; left: 0; right: 0; margin-right: auto; width: 300px;');
         if (localStorage.getItem('theme') == 'dark') {
             statsText.style.backgroundColor = '#343A40';
             statsText.style.color = 'white';
