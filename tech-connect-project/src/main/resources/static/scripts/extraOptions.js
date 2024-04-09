@@ -8,6 +8,8 @@ let purpleYellowMode = document.getElementById("modeSwitchPurpleYellow");
 let blueLitBlueMode = document.getElementById("modeSwitchBlueLitBlue");
 let aboutProject = document.getElementById("aboutProject");
 let navBar = document.getElementsByTagName('nav')[0];
+let theStats = document.getElementById('stats');
+let displayStats = document.getElementById('dashboardInfo');
 // let extraOptions = document.getElementById("extraOptions");
 // let y = document.getElementsByClassName("fa-solid fa-lightbulb")[0];
 let dropdownMenuBtn = document.getElementById("dropdownMenuButton");
@@ -20,6 +22,8 @@ window.onload = function(){
         dropdownMenuBtn.setAttribute('class', 'btn btn-light btn-sm position-fixed bottom-0 end-0')
         document.body.removeAttribute('style');
         dropdownMenuBtn.style.backgroundColor = '';
+        // FIXME: Find a way to change theme of time when in dark mode! Looks like it works! Double check code and optimize!
+        // theStats.setAttribute('class', 'btn btn-dark btn-sm position-fixed bottom-0 start-0')
 
         if (navBar){
             navBar.removeAttribute('style');
@@ -130,6 +134,7 @@ darkMode.addEventListener('click', function() {
     document.body.setAttribute('data-bs-theme', 'dark')
     document.body.removeAttribute('style');
     dropdownMenuBtn.setAttribute('class', 'btn btn-light btn-sm position-fixed bottom-0 end-0')
+    // theStats.setAttribute('class', 'btn btn-dark btn-sm position-fixed bottom-0 start-0')
     localStorage.setItem('theme', 'dark')
     console.log('Theme switched to dark')
 });
@@ -238,4 +243,23 @@ aboutProject.addEventListener('click', function() {
     setTimeout(function(){
         appendToSite.removeChild(aboutText);
     }, 3000);
+});
+
+// TODO: use localStorage to check whether it's turned on by default
+// FIXME: Cannot read properties of null for redOrange
+theStats.addEventListener('click', function() {
+    console.log("Fetching stats");
+    let statsText = document.createElement('button');
+    statsText.setAttribute('style', 'text-align: center; position: absolute; bottom: 0px; left: 0; right: 0; margin-right: auto; width: 300px;');
+    displayStats.appendChild(statsText);
+
+    setInterval(function(){
+        let currentTime = new Date();
+        let defaultPeriod = "AM";
+        if (currentTime.getHours() > 12) {
+            currentTime.setHours(currentTime.getHours() - 12);
+            defaultPeriod = "PM";
+        }
+        statsText.innerHTML = `${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}:${currentTime.getSeconds().toString().padStart(2, '0')} ${defaultPeriod}`;
+    });
 });
