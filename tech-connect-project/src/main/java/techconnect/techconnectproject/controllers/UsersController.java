@@ -2,7 +2,6 @@ package techconnect.techconnectproject.controllers;
 
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Random;
 
 import org.springframework.http.*;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.client.RestTemplate;
 
@@ -198,7 +194,7 @@ public class UsersController {
         String name = formData.get("name");
         String username = formData.get("username");
         String pwd = formData.get("password");
-        String email = formData.get("email"); // TODO: email verification
+        String email = formData.get("email");
 
         List<User> getUserbyUserName = userRepo.findByUsername(username);
         if (!getUserbyUserName.isEmpty()) {
@@ -206,6 +202,12 @@ public class UsersController {
             return "users/register";
         }
 
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        if (!email.matches(emailRegex)) {
+            model.addAttribute("error", "Invalid email format. Please enter a valid email address.");
+            return "users/register";
+        }
+        
         String abstractApiKey = "fd5ff6676b354890b5693d2552c42042";
         String apiUrl = "https://emailvalidation.abstractapi.com/v1/?api_key=" + abstractApiKey + "&email=" + email;
         ResponseEntity<String> emailResponseEntity = restTemplate.getForEntity(apiUrl, String.class);
