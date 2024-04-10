@@ -163,11 +163,12 @@ window.onload = function(){
         setInterval(function(){
             let currentTime = new Date();
             let defaultPeriod = "AM";
+            let monthName = currentTime.toLocaleString('default', { month: 'long' });
             if (currentTime.getHours() > 12) {
                 currentTime.setHours(currentTime.getHours() - 12);
                 defaultPeriod = "PM";
             }
-            statsText.innerHTML = `${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}:${currentTime.getSeconds().toString().padStart(2, '0')} ${defaultPeriod}`;
+            statsText.innerHTML = `${currentTime.getHours()}:${currentTime.getMinutes().toString().padStart(2, '0')}:${currentTime.getSeconds().toString().padStart(2, '0')} ${defaultPeriod} ${monthName} ${currentTime.getDate()}, ${currentTime.getFullYear()}`;
         });
     }
 }
@@ -363,11 +364,12 @@ theStats.addEventListener('click', function() {
         setInterval(function(){
             let currentTime = new Date();
             let defaultPeriod = "AM";
+            let monthName = currentTime.toLocaleString('default', { month: 'long' });
             if (currentTime.getHours() > 12) {
                 currentTime.setHours(currentTime.getHours() - 12);
                 defaultPeriod = "PM";
             }
-            statsText.innerHTML = `${currentTime.getHours().toString().padStart(2, '0')}:${currentTime.getMinutes().toString().padStart(2, '0')}:${currentTime.getSeconds().toString().padStart(2, '0')} ${defaultPeriod}`;
+            statsText.innerHTML = `${currentTime.getHours()}:${currentTime.getMinutes().toString().padStart(2, '0')}:${currentTime.getSeconds().toString().padStart(2, '0')} ${defaultPeriod} ${monthName} ${currentTime.getDate()}, ${currentTime.getFullYear()}`;
         });
     }
     else {
